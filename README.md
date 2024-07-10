@@ -89,19 +89,23 @@ Watch our demo video on YouTube to see the ShopEase in action:
 Here are some screenshots of ShopEase:
 
 ### Add Products to ShopEase
-<img src="[https://github.com/naman-0105/Nature_Insight/blob/main/Nature%20Insight/assets/Home%20Page.png](https://github.com/naman-0105/student-iiits/blob/main/Add.png)" alt="Add Products to ShopEase" width="700">
+<img src="https://github.com/naman-0105/student-iiits/blob/main/Add%20product.png" alt="Add Products to ShopEase" width="700">
+<br>
 
 ### Product Added to Home tab
-<img src="[https://github.com/naman-0105/Nature_Insight/blob/main/Nature%20Insight/assets/Popular%20Plants.png](https://github.com/naman-0105/student-iiits/blob/main/Product%20Added_.png)" alt="Product Added to Home tab" width="700">
+<img src="https://github.com/naman-0105/student-iiits/blob/main/Product%20Added_.png" alt="Product Added to Home tab" width="700">
+<br>
 
 ### Products Added to Wishlist
-<img src="[https://github.com/naman-0105/Nature_Insight/blob/main/Nature%20Insight/assets/Plant%20Identifier.png](https://github.com/naman-0105/student-iiits/blob/main/Wishlist.png)" alt="Products Added to Wishlist" width="700">
-
-### Products being Tracked
-<img src="[https://github.com/naman-0105/Nature_Insight/blob/main/Nature%20Insight/assets/Demo-1.png](https://github.com/naman-0105/student-iiits/blob/main/Product%20Tracked.png)" alt="Products being Tracked" width="700">
+<img src="https://github.com/naman-0105/student-iiits/blob/main/Wishlist.png" alt="Products Added to Wishlist" width="700">
+<br>
 
 ### Price History for Tracked Product
-<img src="[https://github.com/naman-0105/Nature_Insight/blob/main/Nature%20Insight/assets/Demo1%20Result.png](https://github.com/naman-0105/student-iiits/blob/main/Trend.png)" alt="Price History for Tracked Product" width="700">
+<img src="https://github.com/naman-0105/student-iiits/blob/main/Product%20Tracked.png" alt="Price History for Tracked Product" width="700">
+<br>
+
+### Products whose Price Changes
+<img src="https://github.com/naman-0105/student-iiits/blob/main/Trend.png" alt="Products whose Price Changes" width="700">
 
 <br>
 
