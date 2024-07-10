@@ -1,8 +1,14 @@
-
+from flask import Flask, render_template, request, jsonify
 import requests
 from bs4 import BeautifulSoup
 import time
-import webbrowser
+import threading
+from datetime import datetime
+from flask_cors import CORS  
+
+app = Flask(__name__)
+CORS(app)  
+price_data = []
 
 def find_price(URL):
     r = requests.get(URL, headers={"User-Agent": "Defined"})
@@ -26,7 +32,7 @@ def find_price(URL):
             if price:
                 return price.get_text().strip()
         elif 'meesho' in URL:
-            price = soup.find(class_ = "biMVPh")
+            price = soup.find(class_="biMVPh")
             if price:
                 return price.get_text().strip()
         
@@ -34,24 +40,39 @@ def find_price(URL):
         print(f"An error occurred: {e}")
         return None
 
-i = 1
-URL = input("Enter the URL: ")
-while True:
-    price = find_price(URL)
-    if price is None:
-        print("Invalid link")
-        break
-    else:
-        if i < 2:
-            current_price = price
-        previous_price = current_price
-        
-        print(f"Your current price is: {price}")
-        
-        if i > 2:
-            current_price = price
-            if current_price != previous_price:
-                webbrowser.open_new(URL)
+def track_price(URL):
+    global price_data
+    while True:
+        price = find_price(URL)
+        if price is not None:
+            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            price_data.append({'url': URL, 'price': price, 'timestamp': timestamp}) 
+            time.sleep(10)
+        else:
+            break
 
-        time.sleep(10)
-        i += 1
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'POST':
+        URL = request.form['url']
+    
+        tracking_thread = threading.Thread(target=track_price, args=(URL,))
+        tracking_thread.start()
+        return jsonify({'status': 'success'})
+
+@app.route('/get_price', methods=['GET'])
+def get_price():
+    url = request.args.get('url')
+    if url:
+        for item in price_data[::-1]:  
+            if item.get('url') == url:
+                return jsonify({'price': item['price']})
+    return jsonify({'price': None})
+
+@app.route('/get_price_history', methods=['GET'])
+def get_price_history():
+    return jsonify({'price_data': price_data})
+
+if __name__ == '__main__':
+    app.run(port=5501, debug=True)
+
