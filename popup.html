@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pocket</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      height: 500px;
+      width:550px;
+    }
+    
+  .product {
+       display: flex;
+     align-items: center;
+    margin-bottom: 10px;
+     border: 1px solid #ccc;
+     padding: 10px; 
+   }
+   .active {
+  background-color: rgb(231, 118, 43);
+  color: white;
+  border:0.5px;
+
+}
+
+    .product img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+    .product .info {
+      display: flex;
+      flex-direction: column;
+    }
+    .top-navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #f1f1f1;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .bottom-navbar {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #f1f1f1;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .content {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .product-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .product-buttons button {
+    flex: 1;
+    margin: 0 5px;
+    padding: 5px;
+    background-color: #ff6f00;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  .product-enlarged img {
+      width: 100px;
+      height: 100px;
+    }
+    #navbar {
+      display: flex;
+      justify-content: space-around;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #f1f1f1;
+      border-top: 1px solid #ccc;
+    }
+    #navbar button {
+      width: 100%;
+    }
+    #enlarged-product {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+    }
+    .name {
+      font-size: 26px;
+      font-weight: bolder;
+    }
+    #profileBtn {
+      margin-right: 35px;
+    }
+    .trend {
+      margin-right: 30px;
+    }
+    .image {
+      margin-top: 100px;
+      justify-content: center;
+      align-items: center;
+      width: 100px;
+    }
+    .product .info > div {
+  font-weight: bold;
+}
+  </style>
+</head>
+<body>
+
+
+    <!-- <div id="products"></div>
+    <div id="enlarged-product"></div> -->
+
+    <div id="navbar">
+        <button id="homeBtn">Home</button>
+        <button id="wishlistBtn">Wishlist</button>
+        <button id="trackBtn">Track</button>
+        <button class="trend" id="trendBtn">Trend</button>
+      </div> 
+
+      <div class="top-navbar">
+        <div>
+          <span class="name">ShopEase</span>
+          <hr>
+        </div>
+      </div>
+    
+      <!-- Content Section -->
+      <div class="content">
+        <!-- Your existing product display section -->
+        <div id="products"></div>
+        <div id="enlarged-product"></div>
+        <div id="trendPage" style="display:none; text-align: center;">
+
+          <h2>Tracked Items with Price Variation</h2>
+          <img class="image" src="hello.png" alt="Hello Image">
+          <h2 style="font-weight: 200;">No Item Found!</h2>
+        </div>
+      </div>
+    
+
+  <!-- <div class="bottom-navbar">
+    <button id="homeBtn">Home</button>
+    <button id="wishlistBtn">Wishlist</button>
+    <button id="trackBtn">Track</button>
+  </div>
+   -->
+  <script src="popup.js"></script>
+</body>
+</html>

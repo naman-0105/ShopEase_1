@@ -1,0 +1,46 @@
+{
+    "manifest_version": 3,
+    "name": "ShopEase",
+    "version": "1.0",
+    "description": "ShopEase revolutionizes online shopping with a seamless experience across e-commerce platforms. Easily add products to your personalized universal cart or wishlist, where you can track prices in real-time. Receive notifications instantly when prices change, ensuring you never miss a deal. With ShopEase, shopping smarter and saving effortlessly is just a click away.",
+    "permissions": [
+      "storage",
+      "activeTab",
+      "scripting"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://*.amazon.com/*"],
+            "js": ["content1.js"],
+            "run_at": "document_end"
+          },
+        {
+            "matches": ["*://www.flipkart.com/*"],
+            "js": ["content2.js"],
+            "run_at": "document_end"
+        },
+        {
+            "matches": ["*://www.myntra.com/*"],
+            "js": ["content3.js"],
+            "run_at": "document_end"
+        },
+        {
+            "matches": ["*://www.meesho.com/*"],
+            "js": ["content4.js"],
+            "run_at": "document_end"
+        },
+        {
+          "matches": ["*://www.amazon.in/*"],
+          "js": ["content5.js"],
+          "run_at": "document_end"
+      }
+    
+    ]
+  }
+  
