@@ -1,22 +1,66 @@
 document.addEventListener("DOMContentLoaded", function() {
     const productsContainer = document.getElementById("products");
-    const enlargedProductContainer = document.getElementById("enlarged-product");
+    const categoryButtonsContainer = document.getElementById("categoryButtons");
+    
 
 
-    function showHome() {
+    function showHome(category = "All") {
         resetActiveButtons();
+        if (category === "All") {
+            resetActiveCatButtons();
+            document.getElementById("allBtn").classList.add("active");
+        } else if (category === "Amazon") {
+            resetActiveCatButtons();
+            document.getElementById("amazonBtn").classList.add("active");
+        } else if (category === "Flipkart") {
+            resetActiveCatButtons();
+            document.getElementById("flipkartBtn").classList.add("active");
+        } else if (category === "Myntra") {
+            resetActiveCatButtons();
+            document.getElementById("myntraBtn").classList.add("active");
+        } else if (category === "Meesho") {
+            resetActiveCatButtons();
+            document.getElementById("meeshoBtn").classList.add("active");
+        }
+        function resetActiveCatButtons() {
+            document.querySelectorAll("#categoryButtons button").forEach(button => button.classList.remove("active"));
+        }
+
         document.getElementById("homeBtn").classList.add("active");
+        document.getElementById("downloadBtn").style.display = "block";
+        document.getElementById("amazonBtn").addEventListener("click", () => {
+            document.getElementById("downloadBtn").style.display = "none";
+        });
+        document.getElementById("flipkartBtn").addEventListener("click", () => {
+            document.getElementById("downloadBtn").style.display = "none";
+        });
+        document.getElementById("myntraBtn").addEventListener("click", () => {
+            document.getElementById("downloadBtn").style.display = "none";
+        });
+        document.getElementById("meeshoBtn").addEventListener("click", () => {
+            document.getElementById("downloadBtn").style.display = "none";
+        });
+
+        categoryButtonsContainer.style.display = 'block';
 
         productsContainer.style.display = 'block';
-        enlargedProductContainer.style.display = 'none';
-        trendPage.style.display = 'none';
+    
         productsContainer.innerHTML = '';
-        enlargedProductContainer.innerHTML = '';
+    
 
         chrome.storage.local.get({ products: [] }, (result) => {
             const products = result.products;
 
-            products.forEach(product => {
+            const filteredProducts = category === "All" ? products : products.filter(product => {
+                const url = new URL(product.url);
+                return url.hostname.includes(category.toLowerCase());
+            });
+
+            if (filteredProducts.length === 0) {
+                productsContainer.innerHTML = '<img src="/No-items.gif" style="width:300px; margin-left:130px">';
+            } 
+            else{
+            filteredProducts.forEach(product => {
                 const productElement = document.createElement("div");
                 productElement.className = "product";
 
@@ -36,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 productPrice.innerText = product.price;
                 productInfo.appendChild(productPrice);
 
-                // Create buttons
                 const buttonContainer = document.createElement("div");
                 buttonContainer.className = "product-buttons";
 
@@ -48,13 +91,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
                 buttonContainer.appendChild(removeButton);
 
-                const trackButton = document.createElement("button");
-                trackButton.innerText = "Track";
-                trackButton.addEventListener("click", (event) => {
-                    event.stopPropagation();
-                    trackProduct(product);
-                });
-                buttonContainer.appendChild(trackButton);
 
                 const wishlistButton = document.createElement("button");
                 wishlistButton.innerText = "Wishlist";
@@ -72,23 +108,31 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 productsContainer.appendChild(productElement);
             });
+        }
         });
+    }
+    
+
+    function resetActiveButtons() {
+        document.querySelectorAll("#navbar button").forEach(button => button.classList.remove("active"));
     }
 
     function showWishlist() {
         resetActiveButtons();
 
     document.getElementById("wishlistBtn").classList.add("active");
+    document.getElementById("downloadBtn").style.display = "none";
 
         productsContainer.style.display = 'block';
-        enlargedProductContainer.style.display = 'none';
-        trendPage.style.display = 'none';
         productsContainer.innerHTML = '';
-        enlargedProductContainer.innerHTML = '';
 
         chrome.storage.local.get({ wishlist: [] }, (result) => {
             const wishlist = result.wishlist;
 
+            if (wishlist.length === 0) {
+                productsContainer.innerHTML = '<img src="/No-items.gif" style="width:300px; margin-left:130px; margin-top:50px">';
+            }
+            else{
             wishlist.forEach(product => {
                 const productElement = document.createElement("div");
                 productElement.className = "product";
@@ -124,85 +168,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 productsContainer.appendChild(productElement);
             });
+        }
         });
-    }
-
-    function showTrack() {
-        resetActiveButtons();
-
-    
-    document.getElementById("trackBtn").classList.add("active");
-
-        productsContainer.style.display = 'block';
-        enlargedProductContainer.style.display = 'none';
-        trendPage.style.display = 'none';
-        productsContainer.innerHTML = '';
-        enlargedProductContainer.innerHTML = '';
-
-        chrome.storage.local.get({ track: [] }, (result) => {
-            const track = result.track;
-
-            track.forEach(product => {
-                const productElement = document.createElement("div");
-                productElement.className = "product";
-
-                const productImage = document.createElement("img");
-                productImage.src = product.image;
-                productElement.appendChild(productImage);
-
-                const productInfo = document.createElement("div");
-                productInfo.className = "info";
-                productElement.appendChild(productInfo);
-
-                const productName = document.createElement("div");
-                productName.innerText = product.name;
-                productInfo.appendChild(productName);
-
-                const productPrice = document.createElement("div");
-                productPrice.innerText = product.price;
-                productInfo.appendChild(productPrice);
-
-                // Create buttons
-                const buttonContainer = document.createElement("div");
-                buttonContainer.className = "product-buttons";
-
-                const removeButton = document.createElement("button");
-                removeButton.innerText = "Remove";
-                removeButton.addEventListener("click", (event) => {
-                    event.stopPropagation();
-                    removeTrackProduct(product);
-                });
-                buttonContainer.appendChild(removeButton);
-
-                const moreButton = document.createElement("button");
-                moreButton.innerText = "More";
-                moreButton.addEventListener("click", (event) => {
-                    event.stopPropagation();
-                    showEnlargedProduct(product);
-                });
-                buttonContainer.appendChild(moreButton);
-
-                productElement.appendChild(buttonContainer);
-
-                productElement.addEventListener("click", () => {
-                    window.open(product.url);
-                });
-
-                productsContainer.appendChild(productElement);
-            });
-        });
-    }
-
-    function showTrend() {
-        resetActiveButtons();
-
-
-    document.getElementById("trendBtn").classList.add("active");
-
-
-        productsContainer.style.display = 'none';
-        enlargedProductContainer.style.display = 'none';
-        trendPage.style.display = 'block';
     }
 
     function resetActiveButtons() {
@@ -231,31 +198,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function removeTrackProduct(product) {
-        chrome.storage.local.get({ track: [] }, (result) => {
-            const track = result.track.filter(p => p.url !== product.url);
-            chrome.storage.local.set({ track }, () => {
-                showTrack();
-            });
-
-            // Stop recording history for this product
-            chrome.runtime.sendMessage({ action: 'stopTracking', productUrl: product.url });
-        });
-    }
-
-    function trackProduct(product) {
-        chrome.storage.local.get({ track: [] }, (result) => {
-            const track = result.track;
-            track.push(product);
-            chrome.storage.local.set({ track }, () => {
-                alert("Product added to Track!");
-            });
-
-            chrome.runtime.sendMessage({ action: 'startTracking', product: product }, (response) => {
-                console.log(response.status);
-            });
-        });
-    }
 
     function wishlistProduct(product) {
         chrome.storage.local.get({ wishlist: [] }, (result) => {
@@ -267,128 +209,99 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function showEnlargedProduct(product) {
-        productsContainer.style.display = 'none';
-        enlargedProductContainer.style.display = 'block';
-
-        enlargedProductContainer.innerHTML = '';
-
-        const closeButton = document.createElement("button");
-        closeButton.innerText = "Close";
-        closeButton.addEventListener("click", () => {
-            showTrack();
+    function downloadProducts(products) {
+        let htmlContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Product List</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 20px;
+                }
+                .product {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 10px;
+                    border: 1px solid #ccc;
+                    padding: 10px;
+                }
+                .product img {
+                    width: 50px;
+                    height: 50px;
+                    margin-right: 10px;
+                }
+                .product .info {
+                    display: flex;
+                    flex-direction: column;
+                }
+                .product .info div {
+                    font-weight: bold;
+                }
+            </style>
+        </head>
+        <body>
+            <h1>ShopEase Product List</h1>
+            <div id="products">
+        `;
+    
+        products.forEach(product => {
+            htmlContent += `
+            <div class="product">
+                <a href="${product.url}" target="_blank"><img src="${product.image}" alt="Product Image"></a>
+                <div class="info">
+                    <div><a href="${product.url}" target="_blank">${product.name}</a></div>
+                    <br>
+                    <div><span> Price- </span>${product.price}</div>
+                </div>
+                <br>
+            </div>
+            `;
         });
-        enlargedProductContainer.appendChild(closeButton);
-
-        const productElement = document.createElement("div");
-        productElement.className = "product-enlarged";
-
-        const productImage = document.createElement("img");
-        productImage.src = product.image;
-        productElement.appendChild(productImage);
-
-        const productInfo = document.createElement("div");
-        productInfo.className = "info";
-
-        const productName = document.createElement("div");
-        productName.innerText = product.name;
-        productInfo.appendChild(productName);
-
-        const productPrice = document.createElement("div");
-        productPrice.innerText = product.price;
-        productInfo.appendChild(productPrice);
-
-        productElement.appendChild(productInfo);
-        enlargedProductContainer.appendChild(productElement);
-
-        const historyButton = document.createElement("button");
-        historyButton.innerText = "History";
-        historyButton.addEventListener("click", () => {
-            showHistoryTable(product.url);
-        });
-        enlargedProductContainer.appendChild(historyButton);
+    
+        htmlContent += `
+            </div>
+        </body>
+        </html>
+        `;
+    
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+    
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'products.html';
+        a.click();
+        URL.revokeObjectURL(url);
     }
-
-    function showHistoryTable(productUrl) {
-        const table = document.createElement("table");
-        table.style.border = "1px solid black";
-        table.style.width = "100%";
-        table.style.marginTop = "20px";
-
-        const headerRow = document.createElement("tr");
-        const priceHeader = document.createElement("th");
-        priceHeader.innerText = "Price";
-        headerRow.appendChild(priceHeader);
-        const timeHeader = document.createElement("th");
-        timeHeader.innerText = "Time";
-        headerRow.appendChild(timeHeader);
-        const dateHeader = document.createElement("th");
-        dateHeader.innerText = "Date";
-        headerRow.appendChild(dateHeader);
-        table.appendChild(headerRow);
-
-        chrome.storage.local.get({ trackHistory: {} }, (result) => {
-            const trackHistory = result.trackHistory || {};
-            const history = trackHistory[productUrl] || [];
-
-            history.forEach(entry => {
-                const newRow = document.createElement("tr");
-                const priceCell = document.createElement("td");
-                priceCell.innerText = entry.price;
-                newRow.appendChild(priceCell);
-                const timeCell = document.createElement("td");
-                timeCell.innerText = entry.time;
-                newRow.appendChild(timeCell);
-                const dateCell = document.createElement("td");
-                dateCell.innerText = entry.date;
-                newRow.appendChild(dateCell);
-                table.appendChild(newRow);
-            });
-
-            enlargedProductContainer.appendChild(table);
-
-            const closeButton = document.createElement("button");
-            closeButton.innerText = "Close History";
-            closeButton.addEventListener("click", () => {
-                enlargedProductContainer.removeChild(table);
-                enlargedProductContainer.removeChild(closeButton);
-            });
-            enlargedProductContainer.appendChild(closeButton);
+    
+    document.getElementById("downloadBtn").addEventListener("click", () => {
+        chrome.storage.local.get({ products: [] }, (result) => {
+            downloadProducts(result.products);
         });
+    });
 
-        const historyInterval = setInterval(() => {
-            chrome.storage.local.get({ trackHistory: {} }, (result) => {
-                const trackHistory = result.trackHistory || {};
-                const history = trackHistory[productUrl] || [];
+    document.getElementById("allBtn").addEventListener("click", () => {
+        document.getElementById("downloadBtn").style.display = "block";
+    });
 
-                // Clear table and recreate header
-                table.innerHTML = '';
-                table.appendChild(headerRow);
-
-                history.forEach(entry => {
-                    const newRow = document.createElement("tr");
-                    const priceCell = document.createElement("td");
-                    priceCell.innerText = entry.price;
-                    newRow.appendChild(priceCell);
-                    const timeCell = document.createElement("td");
-                    timeCell.innerText = entry.time;
-                    newRow.appendChild(timeCell);
-                    const dateCell = document.createElement("td");
-                    dateCell.innerText = entry.date;
-                    newRow.appendChild(dateCell);
-                    table.appendChild(newRow);
-                });
-            });
-        }, 10000); 
-        enlargedProductContainer.historyInterval = historyInterval;
-    }
+   
 
 
-    document.getElementById("homeBtn").addEventListener("click", showHome);
-    document.getElementById("wishlistBtn").addEventListener("click", showWishlist);
-    document.getElementById("trackBtn").addEventListener("click", showTrack);
-    document.getElementById("trendBtn").addEventListener("click", showTrend);
+    document.getElementById("homeBtn").addEventListener("click", () => showHome("All"));
+    document.getElementById("allBtn").addEventListener("click", () => showHome("All"));
+    document.getElementById("amazonBtn").addEventListener("click", () => showHome("Amazon"));
+    document.getElementById("flipkartBtn").addEventListener("click", () => showHome("Flipkart"));
+    document.getElementById("myntraBtn").addEventListener("click", () => showHome("Myntra"));
+    document.getElementById("meeshoBtn").addEventListener("click", () => showHome("Meesho"));
+    document.getElementById("wishlistBtn").addEventListener("click", () => {
+        categoryButtonsContainer.style.display = 'none';
+        showWishlist();
+    });
+  
 
     // Default view
     showHome();
 });
+
