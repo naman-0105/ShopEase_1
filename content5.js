@@ -6,7 +6,7 @@ function addButton() {
     }
   
     const addButton = document.createElement("button");
-    addButton.innerText = "Add to Hushh";
+    addButton.innerText = "Add to ShopEase";
     addButton.style.position = "absolute";
     addButton.style.top = "10px";
     addButton.style.right = "10px";
@@ -25,17 +25,19 @@ function addButton() {
       const productName = document.getElementById("productTitle").innerText;
       const productPrice = document.querySelector(".a-price .a-offscreen").innerText;
       const productUrl = window.location.href;
+      const productSource = "Amazon";
   
       const product = {
           image: productImage,
           name: productName,
           price: productPrice,
-          url: productUrl
+          url: productUrl,
+          source: productSource
         };
   
         chrome.runtime.sendMessage({ action: "saveProduct", product }, (response) => {
           if (response.status === "success") {
-            alert("Product added to Hushh!");
+            alert("Product added to ShopEase!");
           }
         });
       });
