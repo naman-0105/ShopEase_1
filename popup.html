@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pocket</title>
+  <title>ShopEase</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,6 +16,7 @@
     margin-bottom: 10px;
      border: 1px solid #ccc;
      padding: 10px; 
+     transition: transform 0.2s ease-in-out;
    }
    .active {
   background-color: rgb(231, 118, 43);
@@ -23,6 +24,10 @@
   border:0.5px;
 
 }
+.product:hover {
+      transform: scale(1.03);
+      cursor: pointer; /* Zoom effect */
+    }
 
     .product img {
       width: 50px;
@@ -54,6 +59,7 @@
     width: 100%;
     z-index: 1000;
   }
+ 
 
   .content {
     margin-top: 50px;
@@ -73,12 +79,11 @@
     background-color: #ff6f00;
     color: #fff;
     border: none;
-    cursor: pointer;
   }
-  .product-enlarged img {
-      width: 100px;
-      height: 100px;
-    }
+  .product-buttons button:hover{
+    background-color: #f89412;
+  }
+ 
     #navbar {
       display: flex;
       justify-content: space-around;
@@ -87,15 +92,11 @@
       width: 100%;
       background-color: #f1f1f1;
       border-top: 1px solid #ccc;
+      margin-top: 10px;
     }
     #navbar button {
       width: 100%;
-    }
-    #enlarged-product {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding-top: 20px;
+      padding: 5px;
     }
     .name {
       font-size: 26px;
@@ -103,9 +104,6 @@
     }
     #profileBtn {
       margin-right: 35px;
-    }
-    .trend {
-      margin-right: 30px;
     }
     .image {
       margin-top: 100px;
@@ -115,49 +113,91 @@
     }
     .product .info > div {
   font-weight: bold;
+    }
+    #categoryButtons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+    }
+    #categoryButtons button {
+      width: 17%;
+      padding: 4px;
+    }
+    #allBtn {
+      margin-top: 50px;
+    }
+    
+    #categoryButtons button.active {
+    background-color: #81adc2; 
+    color: white;
+    width: 17%;
+      padding: 6px;
+}
+#categoryButtons button{
+  cursor: pointer;
+}
+
+
+.top-nav {
+  display: flex;
+  gap: 200px;
+  
+}
+#downloadBtn {
+  border: none;
+  color: rgb(255, 255, 255);
+  margin-left: 100px;
+}
+.wishlistBtn {
+  margin-right:30px ;
+}
+#navbar button{
+  cursor: pointer;
+}
+#navbar button.active:hover{
+  background-color: #dd6000;
+}
+.top-navbar button{
+  cursor: pointer;
+  background-color: rgb(18, 18, 189);
+  box-shadow: #81adc2;
+  font-size: 12px;
+  border-radius: 10px;
+
+}
+#downloadBtn:hover{
+  background-color: #806ace;
 }
   </style>
 </head>
 <body>
 
-
-    <!-- <div id="products"></div>
-    <div id="enlarged-product"></div> -->
-
     <div id="navbar">
         <button id="homeBtn">Home</button>
-        <button id="wishlistBtn">Wishlist</button>
-        <button id="trackBtn">Track</button>
-        <button class="trend" id="trendBtn">Trend</button>
-      </div> 
+        <button class="wishlistBtn" id="wishlistBtn">Wishlist</button>
+    </div> 
+    <div id="categoryButtons">
+      <button id="allBtn">All</button>
+      <button id="amazonBtn">Amazon</button>
+      <button id="flipkartBtn">Flipkart</button>
+      <button id="myntraBtn">Myntra</button>
+      <button id="meeshoBtn">Meesho</button>
+  </div>
 
       <div class="top-navbar">
-        <div>
+        <div class="top-nav">
           <span class="name">ShopEase</span>
-          <hr>
+          <button id="downloadBtn">Download List</button>
         </div>
       </div>
     
-      <!-- Content Section -->
       <div class="content">
-        <!-- Your existing product display section -->
         <div id="products"></div>
-        <div id="enlarged-product"></div>
-        <div id="trendPage" style="display:none; text-align: center;">
 
-          <h2>Tracked Items with Price Variation</h2>
-          <img class="image" src="hello.png" alt="Hello Image">
-          <h2 style="font-weight: 200;">No Item Found!</h2>
-        </div>
       </div>
-    
-
-  <!-- <div class="bottom-navbar">
-    <button id="homeBtn">Home</button>
-    <button id="wishlistBtn">Wishlist</button>
-    <button id="trackBtn">Track</button>
-  </div>
-   -->
+  
+  
   <script src="popup.js"></script>
 </body>
 </html>
