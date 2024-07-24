@@ -6,7 +6,7 @@ function addButton() {
     }
   
     const addButton = document.createElement("button");
-    addButton.innerText = "Add to Hushh";
+    addButton.innerText = "Add to ShopEase";
     addButton.style.position = "absolute";
     addButton.style.top = "-40px"; 
     addButton.style.right = "0px"; 
@@ -31,17 +31,19 @@ function addButton() {
       const productName = document.querySelector("h1.pdp-name").innerText;
       const productPrice = document.querySelector("span.pdp-price").innerText;
       const productUrl = window.location.href;
+      const productSource = "Myntra";
   
       const product = {
         image: productImage,
         name: productName,
         price: productPrice,
-        url: productUrl
+        url: productUrl,
+        source: productSource
       };
   
       chrome.runtime.sendMessage({ action: "saveProduct", product }, (response) => {
         if (response.status === "success") {
-          alert("Product added to Hushh!");
+          alert("Product added to ShopEase!");
         }
       });
     });
