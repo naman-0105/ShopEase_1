@@ -10,7 +10,7 @@ function addButton() {
   }
 
   const addButton = document.createElement("button");
-  addButton.innerText = "Add to Hushh";
+  addButton.innerText = "Add to ShopEase";
   addButton.className = "add-to-hushh-button";
   addButton.style.position = "absolute";
   addButton.style.top = "0px"; 
@@ -35,6 +35,7 @@ function addButton() {
       const productName = document.querySelector("span.sc-eDvSVe.fhfLdV").innerText;
       const productPrice = document.querySelector("h4.sc-eDvSVe.biMVPh").innerText;
       const productUrl = window.location.href;
+      const productSource = "Meesho";
 
       if (!productImage) {
           alert("Product image not found");
@@ -45,7 +46,8 @@ function addButton() {
           image: productImage,
           name: productName,
           price: productPrice,
-          url: productUrl
+          url: productUrl,
+          source: productSource
       };
 
       chrome.runtime.sendMessage({ action: "saveProduct", product }, (response) => {
@@ -73,7 +75,6 @@ function observeDOM() {
       subtree: true
   });
 }
-
 
 document.addEventListener("DOMContentLoaded", function() {
   console.log("DOM fully loaded and parsed");
