@@ -7,7 +7,7 @@ function addButton() {
     }
   
     const addButton = document.createElement("button");
-    addButton.innerText = "Add to Hushh";
+    addButton.innerText = "Add to ShopEase";
     addButton.style.position = "absolute";
     addButton.style.top = "10px";
     addButton.style.right = "10px";
@@ -26,22 +26,26 @@ function addButton() {
         const productName = document.querySelector("span.VU-ZEz").innerText;
         const productPrice = document.querySelector("div.Nx9bqj.CxhGGd").innerText;
         const productUrl = window.location.href;
+        const productSource = "Flipkart";
   
         const product = {
             image: productImage,
             name: productName,
             price: productPrice,
-            url: productUrl
+            url: productUrl,
+            source: productSource
         };
   
         chrome.runtime.sendMessage({ action: "saveProduct", product }, (response) => {
             if (response.status === "success") {
-                alert("Product added to Hushh!");
+                alert("Product added to ShopEase!");
             }
         });
     });
   }
   
+  
+
   document.addEventListener("DOMContentLoaded", function() {
     console.log("DOM fully loaded and parsed");
     addButton();
