@@ -5,7 +5,11 @@
 
 ## Introduction
 
-ShopEase is a chrome extension which revolutionizes online shopping with a seamless experience across e-commerce platforms. Easily add products to your personalized universal cart or wishlist, where you can track prices in real-time. Receive notifications instantly when prices change, ensuring you never miss a deal. With ShopEase, shopping smarter and saving effortlessly is just a click away
+Introducing ShopEase – your ultimate solution for a seamless e-commerce shopping experience. ShopEase is a Chrome extension designed to integrate all your e-commerce needs into one place. It supports more than four e-commerce platforms including Amazon, Flipkart, Myntra, and Meesho, allowing you to manage your shopping effortlessly.
+
+ShopEase simplifies your online shopping by integrating multiple e-commerce sites into one. So, why not give it a try and make your shopping experience more efficient and enjoyable?
+
+Try ShopEase and Experience Comfort in Your Shopping! 
 <br>
 <br>
 
@@ -35,24 +39,6 @@ Features of ShopEase Chrome Extension
 <br>
 
 
-🌐 **Product Tracking**: - Share your findings and collaborate on conservation projects.
-
-- **Track Option**: Users can track the price of any product added to ShopEase.
-  
-- **Price History**: Displays the price history of tracked products with timestamps.
-  
-- **Track Management**: Users can add or remove products from tracking at any time.
-<br>
-
-
-🔔 **Notifications**: 
-
-- **Price Change Alerts**: Notifies users when the price of a tracked product changes.
-  
-- **Trend Tab**: Automatically adds products with price changes to a 'Trend' tab for easy monitoring.
-<br>
-
-
 ✅ **Direct Access**: 
 
 - Users can click on a product name within ShopEase to directly access the product page for purchasing.
@@ -67,10 +53,10 @@ Features of ShopEase Chrome Extension
 
 🛒 **Enhanced Shopping Experience**: 
 
-- Provides a seamless experience for users to manage, track, and purchase products across multiple e-commerce platforms.
+- Provides a seamless experience for users to manage and purchase products across multiple e-commerce platforms.
 <br>
 
-ShopEase aims to simplify online shopping by centralizing product management and tracking, enhancing user convenience and shopping efficiency.
+ShopEase aims to simplify online shopping by centralizing product management, enhancing user convenience and shopping efficiency.
 
 
 <br>
@@ -79,33 +65,7 @@ ShopEase aims to simplify online shopping by centralizing product management and
 
 Watch our demo video on YouTube to see the ShopEase in action:
 
-[Watch the video](https://youtu.be/tmHObfmjUcw)
-
-<br>
-
-
-## 📸 Screenshots
-
-Here are some screenshots of ShopEase:
-
-### Add Products to ShopEase
-<img src="https://github.com/naman-0105/student-iiits/blob/main/Add%20product.png" alt="Add Products to ShopEase" width="700">
-<br>
-
-### Product Added to Home tab
-<img src="https://github.com/naman-0105/student-iiits/blob/main/Product%20Added_.png" alt="Product Added to Home tab" width="700">
-<br>
-
-### Products Added to Wishlist
-<img src="https://github.com/naman-0105/student-iiits/blob/main/Wishlist.png" alt="Products Added to Wishlist" width="700">
-<br>
-
-### Price History for Tracked Product
-<img src="https://github.com/naman-0105/student-iiits/blob/main/Product%20Tracked.png" alt="Price History for Tracked Product" width="700">
-<br>
-
-### Products whose Price Changes
-<img src="https://github.com/naman-0105/student-iiits/blob/main/Trend.png" alt="Products whose Price Changes" width="700">
+[Watch the video](https://www.youtube.com/watch?v=yZyglXa8TI4)
 
 <br>
 
@@ -120,42 +80,22 @@ Here are some screenshots of ShopEase:
    ```
 <br>
 
-2. **Run the Flask Server for Regular Price Tracking:**
-
-   - Install Dependencies
-     ```sh
-     pip install Flask
-     pip install requests
-     pip install beautifulsoup4
-     pip install flask_cors
-      ```
-   - **Run the Sever**
-     ```sh
-     python app.py
-     ```
-<br>
-
-3. **Load the Extension in Chrome**
+2. **Load the Extension in Chrome**
 
    - Open Chrome and go to 'chrome://extensions/'
    - Enable Developer mode by toggling the switch in the top right corner.
 <br>
 
-4. **Install the Extension**
+3. **Install the Extension**
 
    - Click on the "Load unpacked" button.
    - Navigate to the directory where your extension files are located and select the folder.
 <br>
 
-5. **Verify Installation**
+4. **Verify Installation**
 
    - Once loaded, your extension should appear in the list of installed extensions with a unique extension ID.
-<br>
 
-6. **Usage**
-
-   - Navigate to the e-commerce websites (e.g., Flipkart, Myntra, Amazon, Meesho)
-   - Use the "Add to Hushh" button on product pages to save products to your extension's list.
 
 
 
